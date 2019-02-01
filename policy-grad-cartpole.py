@@ -26,12 +26,12 @@ import numpy as np
 
 n_HL1 = 200
 n_HL2 = 1
-GAMMA = 0.9
-ALPHA = 1e-1
+GAMMA = 0.99
+ALPHA = 6e-2
 EPSILON = 1e-13
 N_EPS_PER_BATCH = 5
-N_EPOCHS = 5000
-REWARD_THRESH = 100
+N_EPOCHS = 4000
+REWARD_THRESH = 200
 
 env = gym.make('CartPole-v0')
 n_inputs = 4
@@ -132,7 +132,8 @@ for i in range(N_EPOCHS):
 
 			if done or ep_reward == REWARD_THRESH:
 				break
-
+			if i > N_EPOCHS - 5 and j > N_EPS_PER_BATCH - 2:
+				env.render()
 		total_epoch_reward += ep_reward
 		if ep_reward == REWARD_THRESH:
 			advantage = 1
